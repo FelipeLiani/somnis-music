@@ -1,26 +1,12 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View } from 'react-native';
+import MainStack from './src/navigation/MainStack';
+import { PaperProvider } from 'react-native-paper';
+import { theme } from './src/theme/theme';
 
 export default function App() {
   return (
-    <View style={styles.view1}>
-      <View style={styles.view2}>
-        <Text>App</Text>
-      </View>
-    </View>
+    <PaperProvider theme={theme}>
+      <MainStack />
+    </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  view1: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  view2: {
-    height:100,
-    width:100,
-    backgroundColor:'red',
-    justifyContent:'center',
-    alignItems:'center'
-  }
-})
