@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { ThemedComponents } from '../../theme/ThemedComponents';
 import { Icon, Button } from 'react-native-paper';
-import { CommonActions, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { supabase } from '../../lib/supabase';
 
 export default function LoginScreen() {
   return (
@@ -44,7 +45,18 @@ function Header() {
 function Main() {
   const [emailText, setEmailText] = React.useState("");
   const [passwordText, setPasswordText] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const navigation = useNavigation();
+
+  async function signInWithEmail() {
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithPassword({
+      email: emailText,
+      password: passwordText,
+    });
+    if (error) Alert.alert(error.message);
+    setLoading(false);
+  }
 
   return (
     <View style={{
@@ -89,7 +101,10 @@ function Main() {
         style={{
           width: '90%',
           margin: 20
-        }}>
+        }}
+        loading={loading}
+        onPress={() => signInWithEmail()}
+      >
           Entrar
       </Button>
     </View>

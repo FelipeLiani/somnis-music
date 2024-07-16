@@ -2,6 +2,8 @@ import * as React from 'react';
 import { ThemedComponents } from '../../theme/ThemedComponents';
 import { View } from 'react-native';
 import { Button } from 'react-native-paper';
+import { supabase } from '../../lib/supabase';
+import { Alert } from 'react-native';
 
 export default function RegisterScreen() {
   return (
@@ -16,10 +18,29 @@ export default function RegisterScreen() {
 }
 
 function Main() {
-  const [nameText, setNameText] = React.useState("");
   const [emailText, setEmailText] = React.useState("");
   const [passwordText, setPasswordText] = React.useState("");
   const [confirmedPasswordText, setConfirmedPasswordText] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+
+  async function signUpWithEmail() {
+    setLoading(true)
+    const { data: { session }, error } = await supabase.auth.signUp({
+      email: emailText,
+      password: passwordText
+    })
+
+    if (error) Alert.alert(error.message)
+    setLoading(false)
+  }
+
+  function handleSignUp() {
+    if (passwordText !== confirmedPasswordText) {
+      Alert.alert("As senhas não coincidem. Por favor, verifique e tente novamente.");
+      return;
+    }
+    signUpWithEmail();
+  }
 
   return (
     <View style={{
@@ -28,15 +49,6 @@ function Main() {
       justifyContent: 'center',
       alignItems: 'center'
     }}>
-      <ThemedComponents.TextInput
-        label="Nome"
-        value={nameText}
-        onChangeText={text => setNameText(text)}
-        mode='outlined'
-        style={{
-          width: '90%',
-          margin: 2
-        }}/>
       <ThemedComponents.TextInput
         label="Email"
         value={emailText}
@@ -56,26 +68,27 @@ function Main() {
           width: '90%',
           margin: 2
         }}/>
-        <ThemedComponents.TextInput
-          label="Confirmar senha"
-          value={confirmedPasswordText}
-          onChangeText={text => setConfirmedPasswordText(text)}
-          mode='outlined'
-          secureTextEntry
-          style={{
-            width: '90%',
-            margin: 2
-          }}/>
+      <ThemedComponents.TextInput
+        label="Confirmar senha"
+        value={confirmedPasswordText}
+        onChangeText={text => setConfirmedPasswordText(text)}
+        mode='outlined'
+        secureTextEntry
+        style={{
+          width: '90%',
+          margin: 2
+        }}/>
 
-        <Button
-          mode="contained"
-          onPress={() => console.log('Pressed')}
-          style={{
-            width: '90%',
-            margin: 20
-          }}>
-            Cadastrar
-        </Button>
+      <Button
+        mode="contained"
+        loading={loading}
+        onPress={handleSignUp}
+        style={{
+          width: '90%',
+          margin: 20
+        }}>
+          Cadastrar
+      </Button>
     </View>
   )
 }
