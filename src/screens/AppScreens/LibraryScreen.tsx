@@ -22,7 +22,7 @@ function Main() {
       justifyContent:'center',
       alignItems:'center'
     }}>
-      <ThemedComponents.Text variant="headlineMedium">
+      <ThemedComponents.Text textSize='large'>
         Library Screen
       </ThemedComponents.Text>
     </View>

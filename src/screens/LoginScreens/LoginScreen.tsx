@@ -66,10 +66,11 @@ function Main() {
       alignItems:'center'
     }}>
       <ThemedComponents.TextInput
+        inputIconName='mail'
         label="Email"
         value={emailText}
         onChangeText={text => setEmailText(text)}
-        mode='outlined'
+        inputMode='primary'
         style={{
           width: '90%',
           margin: 2
@@ -78,8 +79,8 @@ function Main() {
         label="Senha"
         value={passwordText}
         onChangeText={text => setPasswordText(text)}
-        mode='outlined'
-        secureTextEntry
+        inputMode='primary'
+        secureEntry
         style={{
           width: '90%',
           margin: 2

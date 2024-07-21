@@ -12,9 +12,7 @@ export default function App() {
 
   useEffect(() => {
     // Get the current session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
+    supabase.auth.getSession().then(({ data: { session } }) => {setSession(session)});
 
     // Listen for changes in authentication state
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -22,9 +20,7 @@ export default function App() {
     });
 
     // Cleanup subscription on unmount
-    return () => {
-      subscription?.unsubscribe();
-    };
+    return () => {subscription?.unsubscribe();};
   }, []);
 
   return (

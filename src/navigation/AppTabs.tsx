@@ -5,14 +5,16 @@ import { CommonActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, BottomNavigation } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { themedHeaderOptions } from '../theme/theme';
 
 import HomeScreen from '../screens/AppScreens/HomeScreen';
 import SearchScreen from '../screens/AppScreens/SearchScreen';
 import LibraryScreen from '../screens/AppScreens/LibraryScreen';
 import SettingsScreen from '../screens/AppScreens/SettingsScreen';
 
+import TestScreen from '../screens/TestScreen';
+
 import { useTheme } from 'react-native-paper';
+import { themedHeaderOptions } from '../theme/theme';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +25,7 @@ export default function MyComponent() {
     <NavigationContainer independent={true}>
       <Tab.Navigator
         screenOptions={{
-          headerShown: false,
+          //headerShown: false,
         }}
         tabBar={({ navigation, state, descriptors, insets }) => (
           <BottomNavigation.Bar
@@ -70,40 +72,44 @@ export default function MyComponent() {
         )}
       >
         <Tab.Screen
-          name="Home"
+          name="Ínicio"
           component={HomeScreen}
           options={{
-            tabBarLabel: 'Home',
+            ...themedHeaderOptions,
+            tabBarLabel: 'Ínicio',
             tabBarIcon: ({ color, size }) => {
               return <Icon name="home" size={size} color={color} />;
             }
           }}
         />
         <Tab.Screen
-          name="Search"
+          name="Pesquisar"
           component={SearchScreen}
           options={{
-            tabBarLabel: 'Search',
+            ...themedHeaderOptions,
+            tabBarLabel: 'Pesquisar',
             tabBarIcon: ({ color, size }) => {
               return <Icon name="compass" size={size} color={color} />;
             },
           }}
         />
         <Tab.Screen
-          name="Library"
+          name="Biblioteca"
           component={LibraryScreen}
           options={{
-            tabBarLabel: 'Library',
+            ...themedHeaderOptions,
+            tabBarLabel: 'Biblioteca',
             tabBarIcon: ({ color, size }) => {
               return <Icon name="cards" size={size} color={color} />;
             },
           }}
         />
         <Tab.Screen
-          name="Settings"
-          component={SettingsScreen}
+          name="Ajustes"
+          component={TestScreen}
           options={{
-            tabBarLabel: 'Settings',
+            ...themedHeaderOptions,
+            tabBarLabel: 'Ajustes',
             tabBarIcon: ({ color, size }) => {
               return <Icon name="cog" size={size} color={color} />;
             },

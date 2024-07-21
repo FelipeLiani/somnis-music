@@ -53,7 +53,7 @@ function Main() {
         label="Email"
         value={emailText}
         onChangeText={text => setEmailText(text)}
-        mode='outlined'
+        inputIconName='mail'
         style={{
           width: '90%',
           margin: 2
@@ -62,8 +62,7 @@ function Main() {
         label="Senha"
         value={passwordText}
         onChangeText={text => setPasswordText(text)}
-        mode='outlined'
-        secureTextEntry
+        secureEntry
         style={{
           width: '90%',
           margin: 2
@@ -72,8 +71,7 @@ function Main() {
         label="Confirmar senha"
         value={confirmedPasswordText}
         onChangeText={text => setConfirmedPasswordText(text)}
-        mode='outlined'
-        secureTextEntry
+        secureEntry
         style={{
           width: '90%',
           margin: 2
