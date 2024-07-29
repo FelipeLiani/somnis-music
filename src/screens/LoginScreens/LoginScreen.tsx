@@ -4,6 +4,7 @@ import { ThemedComponents } from '../../theme/ThemedComponents';
 import { Icon, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { supabase } from '../../lib/supabase';
+import { useLoading } from '../../context/LoadingContext';
 
 export default function LoginScreen() {
   return (
@@ -45,7 +46,7 @@ function Header() {
 function Main() {
   const [emailText, setEmailText] = React.useState("");
   const [passwordText, setPasswordText] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
+  const { isLoading, setLoading } = useLoading();
   const navigation = useNavigation();
 
   async function signInWithEmail() {
@@ -103,7 +104,7 @@ function Main() {
           width: '90%',
           margin: 20
         }}
-        loading={loading}
+        loading={isLoading}
         onPress={() => signInWithEmail()}
       >
           Entrar

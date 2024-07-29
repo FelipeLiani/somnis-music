@@ -9,9 +9,9 @@ import SearchScreen from '../screens/AppScreens/SearchScreen';
 import LibraryScreen from '../screens/AppScreens/LibraryScreen';
 import SettingsScreen from '../screens/AppScreens/SettingsScreen';
 
-import { useThemeContext } from '../context/ThemeContext'; // ajuste o caminho conforme necessário
+import { useThemeContext } from '../context/ThemeContext';
 import { themedHeaderOptions } from '../theme/theme';
-import { CommonActions } from '@react-navigation/native'; // Importação correta
+import { CommonActions } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 

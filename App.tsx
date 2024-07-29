@@ -3,8 +3,9 @@ import { View } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
 import MainStack from './src/navigation/MainStack';
 import LoginStack from './src/navigation/LoginStack';
-import { AuthProvider, useAuth } from './src/context/AuthContext'; // ajuste o caminho conforme necessário
-import { ThemeProvider, useThemeContext } from './src/context/ThemeContext'; // ajuste o caminho conforme necessário
+import { AuthProvider, useAuth } from './src/context/AuthContext';
+import { ThemeProvider, useThemeContext } from './src/context/ThemeContext';
+import { LoadingProvider } from './src/context/LoadingContext';
 
 const AppContent = () => {
   const { session } = useAuth();
@@ -23,7 +24,9 @@ export default function App() {
   return (
     <AuthProvider>
       <ThemeProvider>
-        <AppContent />
+        <LoadingProvider>
+          <AppContent />
+        </LoadingProvider>
       </ThemeProvider>
     </AuthProvider>
   );

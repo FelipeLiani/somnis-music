@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode, useContext } from 'react';
 import { Session, AuthChangeEvent } from '@supabase/supabase-js';
-import { supabase } from '../lib/supabase'; // ajuste o caminho conforme necessário
+import { supabase } from '../lib/supabase';
+import { saveToStorage, loadFromStorage, removeFromStorage } from '../services/storageService';
 
 interface AuthContextType {
   session: Session | null;
@@ -13,14 +14,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
-    // Get the current session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
+    // Load session from AsyncStorage
+    const loadSession = async () => {
+      const savedSession = await loadFromStorage('session');
+      if (savedSession) {
+        setSession(savedSession);
+      } else {
+        // If no saved session, get the current session from supabase
+        const { data: { session } } = await supabase.auth.getSession();
+        setSession(session);
+      }
+    };
+    loadSession();
 
     // Listen for changes in authentication state
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: Session | null) => {
       setSession(session);
+      if (session) {
+        saveToStorage('session', session);
+      } else {
+        removeFromStorage('session');
+      }
     });
 
     // Cleanup subscription on unmount
