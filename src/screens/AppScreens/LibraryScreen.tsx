@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { ThemedComponents } from '../../theme/ThemedComponents';
+
 
 export default function LibraryScreen() {
   return (
@@ -15,16 +16,36 @@ export default function LibraryScreen() {
 }
 
 function Main() {
+  const accordions = [
+      {
+        title: "Uncontrolled Accordion",
+        icon: "folder",
+        items: [
+          { title: "First item", icon: "git" },
+          { title: "Second item", icon: "cog" }
+        ]
+      },
+      {
+        title: "Controlled Accordion",
+        icon: "folder",
+        items: [
+          { title: "First item", icon: "git" },
+          { title: "Second item", icon: "cog" }
+        ]
+      }
+    ];
+
   return (
-    <View style={{
-      height:'100%', //Alterar
-      width: '100%',
-      justifyContent:'center',
-      alignItems:'center'
-    }}>
-      <ThemedComponents.Text textSize='large'>
-        Library Screen
-      </ThemedComponents.Text>
-    </View>
+    <ScrollView style={{width: '100%'}}>
+      <ThemedComponents.List
+        sectionTitle='Lista Aninhada'
+        accordions={accordions}
+      />
+      <ThemedComponents.List
+        ListMode='Unique Items'
+        sectionTitle='Lista não Aninhada'
+        accordions={accordions}
+      />
+    </ScrollView>
   )
 }

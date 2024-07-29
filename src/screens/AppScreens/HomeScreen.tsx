@@ -21,7 +21,7 @@ function Main() {
   return (
     <ScrollView contentContainerStyle={{
       flexGrow: 1,
-      marginTop: 20,
+      //marginTop: 20,
       alignItems: 'center',
     }} style={{
       width: '100%',

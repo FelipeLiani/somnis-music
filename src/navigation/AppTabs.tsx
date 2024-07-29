@@ -1,9 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { View, StyleSheet } from 'react-native';
-import { CommonActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text, BottomNavigation } from 'react-native-paper';
+import { BottomNavigation } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomeScreen from '../screens/AppScreens/HomeScreen';
@@ -11,21 +9,20 @@ import SearchScreen from '../screens/AppScreens/SearchScreen';
 import LibraryScreen from '../screens/AppScreens/LibraryScreen';
 import SettingsScreen from '../screens/AppScreens/SettingsScreen';
 
-import TestScreen from '../screens/TestScreen';
-
-import { useTheme } from 'react-native-paper';
+import { useThemeContext } from '../context/ThemeContext'; // ajuste o caminho conforme necessário
 import { themedHeaderOptions } from '../theme/theme';
+import { CommonActions } from '@react-navigation/native'; // Importação correta
 
 const Tab = createBottomTabNavigator();
 
 export default function MyComponent() {
-  const theme = useTheme();
+  const { theme } = useThemeContext();
 
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
         screenOptions={{
-          //headerShown: false,
+          // Define opções globais aqui, se necessário
         }}
         tabBar={({ navigation, state, descriptors, insets }) => (
           <BottomNavigation.Bar
@@ -65,17 +62,18 @@ export default function MyComponent() {
 
               return label;
             }}
-            activeIndicatorStyle={{backgroundColor: theme.colors.primary}}
+            activeIndicatorStyle={{ backgroundColor: theme.colors.primary }}
             activeColor={theme.colors.background}
             inactiveColor={theme.colors.secondary}
-            style={{backgroundColor: theme.colors.background}}/>
+            style={{ backgroundColor: theme.colors.background }}
+          />
         )}
       >
         <Tab.Screen
           name="Ínicio"
           component={HomeScreen}
           options={{
-            ...themedHeaderOptions,
+            ...themedHeaderOptions(theme),
             tabBarLabel: 'Ínicio',
             tabBarIcon: ({ color, size }) => {
               return <Icon name="home" size={size} color={color} />;
@@ -86,7 +84,7 @@ export default function MyComponent() {
           name="Pesquisar"
           component={SearchScreen}
           options={{
-            ...themedHeaderOptions,
+            ...themedHeaderOptions(theme),
             tabBarLabel: 'Pesquisar',
             tabBarIcon: ({ color, size }) => {
               return <Icon name="compass" size={size} color={color} />;
@@ -97,7 +95,7 @@ export default function MyComponent() {
           name="Biblioteca"
           component={LibraryScreen}
           options={{
-            ...themedHeaderOptions,
+            ...themedHeaderOptions(theme),
             tabBarLabel: 'Biblioteca',
             tabBarIcon: ({ color, size }) => {
               return <Icon name="cards" size={size} color={color} />;
@@ -106,9 +104,9 @@ export default function MyComponent() {
         />
         <Tab.Screen
           name="Ajustes"
-          component={TestScreen}
+          component={SettingsScreen}
           options={{
-            ...themedHeaderOptions,
+            ...themedHeaderOptions(theme),
             tabBarLabel: 'Ajustes',
             tabBarIcon: ({ color, size }) => {
               return <Icon name="cog" size={size} color={color} />;

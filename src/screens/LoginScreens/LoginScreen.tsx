@@ -35,7 +35,7 @@ function Header() {
           size={100}
         />
       </View>
-      <ThemedComponents.Text variant='displaySmall'>
+      <ThemedComponents.Text textSize='large'>
         Somnis
       </ThemedComponents.Text>
     </View>
