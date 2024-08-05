@@ -1,51 +1,45 @@
 import * as React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { ThemedComponents } from '../../theme/ThemedComponents';
-
+import { Button } from 'react-native-paper';
+import MusicPlayer from '../../components/modals/MusicPlayer';  // Ajuste o caminho conforme necessário
 
 export default function LibraryScreen() {
   return (
-    <ThemedComponents.View style={{
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center'
-    }}>
+    <ThemedComponents.View
+      style={{
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
       <Main />
     </ThemedComponents.View>
-  )
+  );
 }
 
 function Main() {
-  const accordions = [
-      {
-        title: "Uncontrolled Accordion",
-        icon: "folder",
-        items: [
-          { title: "First item", icon: "git" },
-          { title: "Second item", icon: "cog" }
-        ]
-      },
-      {
-        title: "Controlled Accordion",
-        icon: "folder",
-        items: [
-          { title: "First item", icon: "git" },
-          { title: "Second item", icon: "cog" }
-        ]
-      }
-    ];
+  const [visible, setVisible] = React.useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
 
   return (
-    <ScrollView style={{width: '100%'}}>
-      <ThemedComponents.List
-        sectionTitle='Lista Aninhada'
-        accordions={accordions}
-      />
-      <ThemedComponents.List
-        ListMode='Unique Items'
-        sectionTitle='Lista não Aninhada'
-        accordions={accordions}
-      />
+    <ScrollView
+      contentContainerStyle={{
+        flexGrow: 1,
+        marginTop: '20%',
+        alignItems: 'center',
+      }}
+      style={{
+        width: '100%'
+      }}
+    >
+      <MusicPlayer visible={visible} onDismiss={hideModal} />
+
+      <Button style={{ marginTop: 30 }} onPress={showModal}>
+        Show
+      </Button>
     </ScrollView>
-  )
+  );
 }

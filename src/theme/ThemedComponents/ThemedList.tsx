@@ -1,16 +1,18 @@
 import * as React from 'react';
-import { View } from 'react-native';
-import { List, useTheme } from 'react-native-paper';
+import { View, TouchableOpacity } from 'react-native';
+import { List, useTheme, Portal } from 'react-native-paper';
 
 interface AccordionItem {
   title: string;
   icon: string;
   onPress?: () => void;
+  ItemDescription?: string;
+  rightIcon?: string;
 }
 
 interface AccordionData {
-  title: string;
-  icon: string;
+  title?: string;
+  icon?: string;
   items: AccordionItem[];
 }
 
@@ -43,7 +45,10 @@ const ThemedList: React.FC<ThemedListProps> = ({ sectionTitle, accordions, ListM
                   style={{ marginLeft: 30 }}
                   titleStyle={{ color: theme.colors.tertiary }}
                   left={props => <List.Icon {...props} icon={item.icon} color={theme.colors.secondary} />}
-                  right={props => <List.Icon {...props} icon={'arrow-right'} color={theme.colors.secondary} />}
+                  right={props => (
+                    <List.Icon {...props} icon={item.rightIcon || 'chevron-right'} color={theme.colors.secondary} />
+                  )}
+                  description={item.ItemDescription} // Adicionada a descrição condicional
                   onPress={item.onPress}
                 />
               ))}
@@ -61,7 +66,10 @@ const ThemedList: React.FC<ThemedListProps> = ({ sectionTitle, accordions, ListM
                 style={{ borderRadius: 20 }}
                 titleStyle={{ color: theme.colors.tertiary }}
                 left={props => <List.Icon {...props} icon={item.icon} color={theme.colors.secondary} />}
-                right={props => <List.Icon {...props} icon={'arrow-right'} color={theme.colors.secondary} />}
+                right={props => (
+                  <List.Icon {...props} icon={item.rightIcon || 'chevron-right'} color={theme.colors.secondary} />
+                )}
+                description={item.ItemDescription} // Adicionada a descrição condicional
                 onPress={item.onPress}
               />
             ))

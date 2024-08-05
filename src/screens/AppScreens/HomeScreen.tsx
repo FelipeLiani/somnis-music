@@ -1,6 +1,10 @@
 import * as React from 'react';
-import { View, ScrollView } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import { ThemedComponents } from '../../theme/ThemedComponents';
+import PlaylistCarousel from '../../components/PlaylistCarousel';
+import MusicPlayer from '../../components/modals/MusicPlayer';
+import { Appbar } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 
 export default function HomeScreen() {
   return (
@@ -9,71 +13,101 @@ export default function HomeScreen() {
       flexDirection: 'column',
       alignItems: 'center'
     }}>
+      <Header />
       <Main />
     </ThemedComponents.View>
+  );
+}
+
+function Header() {
+  const theme = useTheme()
+  return (
+    <Appbar.Header style={{height: '0%'}}>
+      <View />
+    </Appbar.Header>
   )
 }
 
 function Main() {
-  const [alertDialogVisible, setAlertDialogVisible] = React.useState(false);
-  const [confirmationDialogVisible, setConfirmationDialogVisible] = React.useState(false);
+
+  // MusicPlayer
+  const [visible, setVisible] = React.useState(false);
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+
+
+  const items = [
+    {
+      items: [
+        {
+          title: "Bohemian Rhapsody",
+          ItemDescription: 'Queen',
+          icon: "music",
+          rightIcon: 'play-circle',
+          onPress: showModal
+        },
+        {
+          title: "Billie Jean",
+          ItemDescription: 'Michael Jackson',
+          icon: "music",
+          rightIcon: 'play-circle',
+          onPress: showModal
+        },
+        {
+          title: "Like a Rolling Stone",
+          ItemDescription: 'Bob Dylan',
+          icon: "music",
+          rightIcon: 'play-circle',
+          onPress: showModal
+        },
+        {
+          title: "Imagine",
+          ItemDescription: 'John Lennon',
+          icon: "music",
+          rightIcon: 'play-circle',
+          onPress: showModal
+        }
+      ]
+    }
+  ];
+
+  const playlists = [
+    {
+      cover: "https://picsum.photos/700",
+      title: 'Rock Classics',
+      subtitle: 'Timeless rock hits'
+    },
+    {
+      cover: "https://picsum.photos/700",
+      title: 'Pop Hits',
+      subtitle: 'Top pop tracks'
+    },
+    {
+      cover: "https://picsum.photos/700",
+      title: 'Jazz Vibes',
+      subtitle: 'Smooth jazz selections'
+    }
+  ];
 
   return (
     <ScrollView contentContainerStyle={{
       flexGrow: 1,
-      //marginTop: 20,
       alignItems: 'center',
     }} style={{
       width: '100%',
     }}>
-      <ThemedComponents.Text highlight style={{marginTop: 18 }}>Botões</ThemedComponents.Text>
-      <ThemedComponents.Button buttonMode='primary' buttonSize='large' buttonIconName='alpha-p-box'
-        onPress={() => console.log('pressed')} style={{ margin: 8 }}>
-          Primary
-      </ThemedComponents.Button>
-      <ThemedComponents.Button buttonMode='secondary' buttonSize='large' buttonIconName='alpha-s-box'
-        onPress={() => console.log('pressed')} style={{ margin: 8 }}>
-          Secondary
-      </ThemedComponents.Button>
-      <ThemedComponents.Button buttonMode='tertiary' buttonSize='large' buttonIconName='alpha-t-box'
-        onPress={() => console.log('pressed')} style={{ margin: 8 }}>
-          Tertiary
-      </ThemedComponents.Button>
-      <ThemedComponents.Button buttonMode='text' buttonSize='large' buttonIconName='alpha-t-box'
-        onPress={() => console.log('pressed')} style={{ margin: 8 }}>
-          Text only
-      </ThemedComponents.Button>
+      <ThemedComponents.List
+        ListMode='Unique Items'
+        sectionTitle='Music List'
+        accordions={items}
+      />
+      <PlaylistCarousel
+        title="Featured Playlists"
+        subtitle="Explore our curated playlists"
+        playlists={playlists}
+      />
 
-
-      <ThemedComponents.Text highlight style={{marginTop: 18 }}>Inputs</ThemedComponents.Text>
-      <ThemedComponents.TextInput
-        label="Primary + Number KeyType"
-        inputKeyboardType='number'
-        style={{
-          width: '90%',
-          margin: 2
-      }}/>
-      <ThemedComponents.TextInput
-        label="Secondary + Secure Entry"
-        secureEntry
-        inputMode='secondary'
-        style={{
-          width: '90%',
-          margin: 2
-      }}/>
-      <ThemedComponents.Text highlight style={{marginTop: 18 }}>Dialogs</ThemedComponents.Text>
-      <ThemedComponents.Button buttonMode='secondary' buttonSize='medium' buttonIconName='chat'
-        onPress={() => setAlertDialogVisible(true)} style={{ margin: 8 }}>
-          Mostrar alerta
-      </ThemedComponents.Button>
-      <ThemedComponents.Dialog dialogVisible={alertDialogVisible} hideDialog={() => setAlertDialogVisible(false)}
-      dialogMode='Alert'/>
-      <ThemedComponents.Button buttonMode='secondary' buttonSize='medium' buttonIconName='chat'
-        onPress={() => setConfirmationDialogVisible(true)} style={{ margin: 8 }}>
-          Solicitar confirmação
-      </ThemedComponents.Button>
-      <ThemedComponents.Dialog dialogVisible={confirmationDialogVisible} hideDialog={() => setConfirmationDialogVisible(false)}
-      dialogMode='Confirmation'/>
+      <MusicPlayer visible={visible} onDismiss={hideModal} />
     </ScrollView>
-  )
+  );
 }

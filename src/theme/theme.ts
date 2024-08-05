@@ -1,10 +1,10 @@
 import { MD3LightTheme as DefaultTheme } from 'react-native-paper';
 
 const myColors = {
-  primary: '#758BFD',
-  secondary: '#AEB8FE',
-  tertiary: '#F1F2F6',
-  background: '#27187E'
+  primary: '#E63462',
+  secondary: '#FE5F55',
+  tertiary: '#EFFBF1',
+  background: '#111217'
 }
 
 export const lightTheme = {
@@ -19,6 +19,7 @@ export const lightTheme = {
     secondaryContainer: myColors.secondary,
     outline: myColors.background,
     onPrimary: myColors.background,
+    onSurfaceVariant: myColors.background,
     onSecondaryContainer: myColors.tertiary,
     surface: myColors.tertiary
   }
@@ -36,6 +37,7 @@ export const darkTheme = {
     secondaryContainer: myColors.secondary,
     outline: myColors.tertiary,
     onPrimary: myColors.tertiary,
+    onSurfaceVariant: myColors.tertiary,
     onSecondaryContainer: myColors.background,
     surface: myColors.background
   }

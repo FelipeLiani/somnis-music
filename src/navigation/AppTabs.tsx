@@ -22,7 +22,7 @@ export default function MyComponent() {
     <NavigationContainer independent={true}>
       <Tab.Navigator
         screenOptions={{
-          // Define opções globais aqui, se necessário
+          headerShown: false
         }}
         tabBar={({ navigation, state, descriptors, insets }) => (
           <BottomNavigation.Bar

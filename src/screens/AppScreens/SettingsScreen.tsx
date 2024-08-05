@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { ThemedComponents } from '../../theme/ThemedComponents';
 import { supabase } from '../../lib/supabase';
+import { useTheme, Appbar } from 'react-native-paper';
 
 
 export default function SettingsScreen() {
@@ -11,8 +12,18 @@ export default function SettingsScreen() {
       flexDirection: 'column',
       alignItems: 'center'
     }}>
+      <Header />
       <Main />
     </ThemedComponents.View>
+  )
+}
+
+function Header() {
+  const theme = useTheme()
+  return (
+    <Appbar.Header style={{height: '0%'}}>
+      <View />
+    </Appbar.Header>
   )
 }
 
@@ -42,7 +53,12 @@ function Main() {
     ];
 
   return (
-    <ScrollView style={{width: '100%'}}>
+    <ScrollView contentContainerStyle={{
+      flexGrow: 1,
+      alignItems: 'center',
+    }} style={{
+      width: '100%',
+    }}>
       <ThemedComponents.List
         sectionTitle='Lista Aninhada'
         accordions={accordions}

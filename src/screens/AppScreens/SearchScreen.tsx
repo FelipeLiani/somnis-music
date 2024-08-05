@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { ThemedComponents } from '../../theme/ThemedComponents';
+import { useTheme, Appbar, Searchbar, Chip } from 'react-native-paper';
+import ChipList from '../../components/ChipList';
 
 export default function SearchScreen() {
   return (
@@ -9,50 +11,64 @@ export default function SearchScreen() {
       flexDirection: 'column',
       alignItems: 'center'
     }}>
+      <Header />
       <Main />
     </ThemedComponents.View>
   )
 }
 
+function Header() {
+  const theme = useTheme();
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  return (
+    <Appbar.Header style={{marginTop: 12}}>
+      <View style={{
+        width: '100%', justifyContent: 'center', alignItems: 'center',
+      }}>
+        <View style={{width: '96%'}}>
+          <Searchbar
+            placeholder="Search"
+            placeholderTextColor={theme.colors.tertiary} iconColor={theme.colors.tertiary}
+            onChangeText={setSearchQuery}
+            value={searchQuery}
+            style={{
+              width: '100%',
+              backgroundColor: 'transparent',
+              borderWidth: 2, borderColor: theme.colors.secondary
+            }}
+          />
+        </View>
+      </View>
+    </Appbar.Header>
+  );
+}
+
 function Main() {
-  const [segmentedButtonsValue, setSegmentedButtonsValue] = React.useState('');
-  const tags = ['Saga', 'seasonfinale', 'PeeWee'];
-  const tags1 = ['Saga', 'seasonfinale', 'PeeWee', 'got', 'series', 'hbo'];
+  const chips = [
+    {text: 'chip', icon: 'cog'},
+    {text: 'leroy', icon: 'cog'},
+    {text: 'minecraft', icon: 'cog'},
+    {text: 'heloo', icon: 'cog'},
+    {text: 'chupaivos', icon: 'cog'},
+    {text: 'chip', icon: 'cog'},
+    {text: 'leroy', icon: 'cog'},
+    {text: 'minecraft', icon: 'cog'},
+    {text: 'heloo', icon: 'cog'},
+    {text: 'chupaivos', icon: 'cog'}
+  ]
 
   return (
     <ScrollView contentContainerStyle={{
       flexGrow: 1,
-      //marginTop: 20,
+      marginTop: '10%',
       alignItems: 'center',
     }} style={{
       width: '100%',
     }}>
-      <ThemedComponents.Text highlight style={{marginTop: 18 }}>Cards</ThemedComponents.Text>
-      <ThemedComponents.Card
-        cardLeftContentIcon="account-circle"
-        cardTitle="John"
-        cardSubtitle="@JohnWalker"
-        tags={tags}
-        cardCover="https://picsum.photos/700"
-        style={{ margin: 10 }}
-      >
-        <ThemedComponents.Text textSize='small'>
-          Card Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-        </ThemedComponents.Text>
-      </ThemedComponents.Card>
-      <ThemedComponents.Card
-        cardLeftContentIcon="account-circle"
-        cardTitle="John"
-        cardSubtitle="@JohnWalker"
-        tags={tags1}
-        segmentedButtonsValue={segmentedButtonsValue}
-        setSegmentedButtonsValue={setSegmentedButtonsValue}
-        style={{ margin: 10 }}
-      >
-        <ThemedComponents.Text textSize='small'>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-        </ThemedComponents.Text>
-      </ThemedComponents.Card>
+      <ChipList title='título' chips={chips} />
+      <ChipList title='título' chips={chips} />
+      <ChipList title='título' chips={chips} />
     </ScrollView>
   )
 }
