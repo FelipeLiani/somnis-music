@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ScrollView, View } from 'react-native';
 import { ThemedComponents } from '../../theme/ThemedComponents';
 import { Button } from 'react-native-paper';
-import MusicPlayer from '../../components/modals/MusicPlayer';  // Ajuste o caminho conforme necessário
+import { searchYouTube } from '../../lib/youtube-search';
 
 export default function LibraryScreen() {
   return (
@@ -19,10 +19,16 @@ export default function LibraryScreen() {
 }
 
 function Main() {
-  const [visible, setVisible] = React.useState(false);
 
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
+  function HandleButton () {
+    searchYouTube('a casa do dragao')
+      .then(results => {
+        console.log(results);
+      })
+      .catch(err => {
+        console.error('Erro ao buscar vídeos:', err);
+      });
+  }
 
   return (
     <ScrollView
@@ -35,10 +41,9 @@ function Main() {
         width: '100%'
       }}
     >
-      <MusicPlayer visible={visible} onDismiss={hideModal} />
 
-      <Button style={{ marginTop: 30 }} onPress={showModal}>
-        Show
+      <Button style={{ marginTop: 30 }} onPress={HandleButton}>
+        botão
       </Button>
     </ScrollView>
   );
