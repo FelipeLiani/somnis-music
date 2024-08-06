@@ -1,9 +1,9 @@
 import youtubeSearch from 'youtube-search';
-const API_KEY = 'AIzaSyAdtHedLKNpmOM_Fc6Hgon6iPPyLP1CUls';
+import { env } from '../config/environment';
 
 const opts: youtubeSearch.YouTubeSearchOptions = {
   maxResults: 10,
-  key: API_KEY,
+  key: env.YOUTUBE_API_KEY,
 };
 
 interface YouTubeSearchResult {
