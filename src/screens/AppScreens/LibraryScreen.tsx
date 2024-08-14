@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ScrollView, View } from 'react-native';
 import { ThemedComponents } from '../../theme/ThemedComponents';
 import { Button } from 'react-native-paper';
-import { searchYouTube } from '../../lib/youtube-search';
+import { searchYouTube, parseYoutubeResponse } from '../../lib/youtubeSearch';
 
 export default function LibraryScreen() {
   return (
@@ -21,7 +21,7 @@ export default function LibraryScreen() {
 function Main() {
 
   function HandleButton () {
-    searchYouTube('a casa do dragao')
+    searchYouTube('Imagine Dragons')
       .then(results => {
         console.log(results);
       })

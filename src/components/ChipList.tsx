@@ -19,10 +19,10 @@ const ChipList: React.FC<Props> = ({ title, chips }) => {
   const theme = useTheme();
 
   return (
-    <View style={{ alignSelf: 'flex-start', marginLeft: 20, marginBottom: 10 }}>
+    <View style={{ alignSelf: 'flex-start', marginLeft: 20, marginBottom: 5 }}>
       <ThemedComponents.Text
         highlight
-        style={{ color: theme.colors.primary }}
+        style={{ color: theme.colors.primary, marginBottom: 5 }}
       >
         {title}
       </ThemedComponents.Text>
@@ -31,8 +31,9 @@ const ChipList: React.FC<Props> = ({ title, chips }) => {
           maxWidth: '90%',
           display: 'flex',
           flexDirection: 'row',
-          margin: 10,
+          marginLeft: 10,
           justifyContent: 'flex-start',
+          alignItems: 'center',
           flexWrap: 'wrap',
         }}
       >

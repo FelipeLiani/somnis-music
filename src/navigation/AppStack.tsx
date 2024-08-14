@@ -1,16 +1,16 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AppTabs from './AppTabs';
+import BottomTabs from './BottomTabs';
 
 const Stack = createNativeStackNavigator();
 
-export default function MainStack() {
+export default function AppStack() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="App">
         <Stack.Screen
           name="App"
-          component={AppTabs}
+          component={BottomTabs}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -15,7 +15,7 @@ import { CommonActions } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
-export default function MyComponent() {
+export default function BottomTabs() {
   const { theme } = useThemeContext();
 
   return (

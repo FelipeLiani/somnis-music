@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
-import MainStack from './src/navigation/MainStack';
+import AppStack from './src/navigation/AppStack';
 import LoginStack from './src/navigation/LoginStack';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { ThemeProvider, useThemeContext } from './src/context/ThemeContext';
@@ -14,7 +14,7 @@ const AppContent = () => {
   return (
     <PaperProvider theme={theme}>
       <View style={{ flex: 1 }}>
-        {session && session.user ? (<MainStack />) : (<LoginStack />)}
+        {session && session.user ? (<AppStack />) : (<LoginStack />)}
       </View>
     </PaperProvider>
   );

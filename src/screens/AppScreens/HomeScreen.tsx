@@ -20,7 +20,6 @@ export default function HomeScreen() {
 }
 
 function Header() {
-  const theme = useTheme()
   return (
     <Appbar.Header style={{height: '0%'}}>
       <View />

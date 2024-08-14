@@ -1,5 +1,6 @@
 import youtubeSearch from 'youtube-search';
 import { env } from '../config/environment';
+import Media from '../models/Media';
 
 const opts: youtubeSearch.YouTubeSearchOptions = {
   maxResults: 10,
@@ -34,4 +35,36 @@ export const searchYouTube = async (query: string): Promise<YouTubeSearchResult>
       throw new Error('Erro desconhecido ao buscar no YouTube.');
     }
   }
+};
+
+export const parseYoutubeResponse = (response: YouTubeSearchResult): Media[] => {
+  if (!response.items || !Array.isArray(response.items)) {
+    throw new Error('Resposta inválida: items não encontrados.');
+  }
+
+  return response.items.map((item: any) => {
+    const {
+      id,
+      kind,
+      title,
+      description,
+      channelId,
+      channelTitle,
+      publishedAt,
+      link,
+      thumbnails
+    } = item;
+
+    return new Media(
+      id,
+      kind,
+      title,
+      description,
+      channelId,
+      channelTitle,
+      publishedAt,
+      link,
+      thumbnails
+    );
+  });
 };

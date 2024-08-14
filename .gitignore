@@ -1,5 +1,4 @@
 node_modules
 .zed
 .expo
-.env
 src/config/environment.ts
